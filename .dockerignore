@@ -1,0 +1,12 @@
+# do not copy node modules
+/node_modules
+# dist will be created at runtime
+/dist
+/*.zip
+/*.tar
+/cumulocity.json
+/.env
+/.vscode
+/*.md
+/*.key
+/*.crt
