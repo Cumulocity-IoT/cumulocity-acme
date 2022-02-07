@@ -56,14 +56,11 @@ export async function performCommand(
         return resolve();
       }
       if (error) {
-        logger.error(`error: ${error.message}`);
         return reject(error);
       }
       if (stderr) {
-        logger.error(`stderr: ${stderr}`);
         return reject(stderr);
       }
-      logger.debug(`stdout: ${stdout}`);
       return resolve();
     });
     if (options.printOutput) {

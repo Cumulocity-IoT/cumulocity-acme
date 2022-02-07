@@ -1,4 +1,4 @@
-# Cumulocity - ACME
+# Cumulocity IoT Edge - ACME
 
 This repository contains the sources for an ACME microservice that can be used to periodically issue/renew certificates for the Cumulocity IoT Edge. This allows you to operate your c8y Edge with valid certificates signed by e.g. [Let's Encrypt](https://letsencrypt.org/). The certificates signed by e.g. Let's Encrypt only have a limited validity of 90 days. So they need to be renewed at some point within this 90 days period. This microservice takes care of this as well.
 
