@@ -36,7 +36,7 @@ The microserivce will be configured via tenant options. All tenant options use t
 |add_wildcard_sub|If set to ``true``, not only a certificate for e.g. ``myown.iot.com`` will issued, but also for ``*.myown.iot.com``|N/a|``false``|❌|
 |add_wildcard_main|If set to ``true``, instead of ``myown.iot.com``, a certificate for ``*.iot.com`` will be issued|N/a|``false``|❌|
 
-After you have identified your DNS provider [here](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) you might have already noticed that you need to set some provider specific environemt variables. For the DuckDNS provider this would e.g. be the ``DuckDNS_Token`` variable. Those environment variables can just be set by creating them as a tenant option (category: ``acme``, key: ``<env-variable-key>`` e.g. ``DuckDNS_Token``, value: ``<env-variable-value>``).
+After you have identified your DNS provider [here](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) you might have already noticed that you need to set some provider specific environemt variables. For the DuckDNS provider this would e.g. be the ``DuckDNS_Token`` variable. Those environment variables can just be set by creating them as a tenant option (category: ``acme``, key: ``<env-variable-key>`` e.g. ``DuckDNS_Token``, value: ``<env-variable-value>``). If the environment variable contains sensitive data, you can also use the encryption mechanism of the tenant options by prefixing the key with ``credentials.`` e.g. like this ``credentials.DuckDNS_Token``.
 
 After setting the above mentioned tenant options according to your needs, you can trigger a forced renewal of the certificate by performing a POST on ``{{url}}/service/acme/forceRenew`` with an empty body and credentials of the edge management tenant.
 
