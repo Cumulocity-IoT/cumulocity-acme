@@ -32,11 +32,13 @@ The microserivce will be configured via tenant options. All tenant options use t
 |renew_days_before_expiry|The number of days the current certificate needs to be still vaild, otherwise a renewal will be triggered. If e.g. the period a certificate is valid after issueing it is 90 days and you set this value to 89, the certificate will be renewed 1 day after issueing/renewing the old one (daily).|N/a|``20``|❌|
 |insecure|Some DNS providers might require you to set this flag to ``true`` since their API might be using a certificate that can not be verified.|``--insecure``|``false``|❌|
 |debug|For a more detailed output of the acme.sh script|``--debug``|``false``|❌|
-|skip_cert_replacement|   |N/a|``false``|❌|
+|skip_cert_replacement|If set to ``true`` the certificates of the edge will actually not be replaced, useful for testing purposes.|N/a|``false``|❌|
 |add_wildcard_sub|If set to ``true``, not only a certificate for e.g. ``myown.iot.com`` will issued, but also for ``*.myown.iot.com``|N/a|``false``|❌|
 |add_wildcard_main|If set to ``true``, instead of ``myown.iot.com``, a certificate for ``*.iot.com`` will be issued|N/a|``false``|❌|
 
 After you have identified your DNS provider [here](https://github.com/acmesh-official/acme.sh/wiki/dnsapi) you might have already noticed that you need to set some provider specific environemt variables. For the DuckDNS provider this would e.g. be the ``DuckDNS_Token`` variable. Those environment variables can just be set by creating them as a tenant option (category: ``acme``, key: ``<env-variable-key>`` e.g. ``DuckDNS_Token``, value: ``<env-variable-value>``). If the environment variable contains sensitive data, you can also use the encryption mechanism of the tenant options by prefixing the key with ``credentials.`` e.g. like this ``credentials.DuckDNS_Token``.
+
+The ``server`` tenant option defaults to ``letsencrypt_test`` if no value is explicitly set. The ``letsencrypt_test`` server can be used to validate your whole acme setup before actually requesting the certificates from the production server of Let's Encrypt. I strongly recommend to first setup and test everything against the test server since the production server is ratelimited and might block your IP for a specific amount of time after too many failed attempts. You can also combine this with the ``skip_cert_replacement`` option so that the ``letsencrypt_test`` certificates are actually not really rolled out to your Cumulocity Edge.
 
 After setting the above mentioned tenant options according to your needs, you can trigger a forced renewal of the certificate by performing a POST on ``{{url}}/service/acme/forceRenew`` with an empty body and credentials of the edge management tenant.
 
