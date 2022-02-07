@@ -1,7 +1,7 @@
 {
   "apiVersion": "v1",
   "name": "acme",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "0.0.1",
   "provider": {
     "name": "Tristan Bastian",
     "domain": "https://github.com/SoftwareAG/cumulocity-acme",
