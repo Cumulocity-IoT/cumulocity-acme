@@ -5,9 +5,32 @@ import { Logger } from 'winston';
 import { acmeArchiveFileName, acmeDirName, basePath, performCommand, SpecialTenantOptions } from './acme.service';
 import { getSingleTenantClient, listTenantOptionsOfCategory } from './cumulocity.service';
 
+function sleep(seconds: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), seconds * 1000);
+  });
+}
+
+export async function waitUntilTenantIsAvailable(client: Client, logger: Logger): Promise<void> {
+  logger.info('Checking if tenant is already available.');
+  const secondsToSleepBetweenRetries = 10;
+  let counter = 1;
+  while (true) {
+    try {
+      await client.tenant.current();
+      break;
+    } catch (e) {
+      logger.info(`[${counter}] Tenant not yet reachable trying again in ${secondsToSleepBetweenRetries} seconds...`);
+      await sleep(secondsToSleepBetweenRetries);
+      counter++;
+    }
+  }
+}
+
 export async function restoreFromACMEArchiveIfPossible(logger: Logger): Promise<void> {
   try {
     const client = getSingleTenantClient();
+    await waitUntilTenantIsAvailable(client, logger);
     const newestArchiveId = await findNewestACMEArchiveId(client);
     if (!newestArchiveId) {
       logger.info(`No Archive found to restore.`);
