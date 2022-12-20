@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@c8y/client": "^1013.168.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "generate-password": "^1.7.0",
     "lodash-es": "^4.17.20",
