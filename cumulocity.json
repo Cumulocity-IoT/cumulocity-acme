@@ -1,7 +1,7 @@
 {
   "apiVersion": "v1",
   "name": "acme",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "provider": {
     "name": "Tristan Bastian",
     "domain": "https://github.com/SoftwareAG/cumulocity-acme",
@@ -18,7 +18,9 @@
     "ROLE_TENANT_MANAGEMENT_READ",
     "ROLE_TENANT_MANAGEMENT_ADMIN"
   ],
-  "roles": ["ROLE_ACME_ADMIN"],
+  "roles": [
+    "ROLE_ACME_ADMIN"
+  ],
   "livenessProbe": {
     "httpGet": {
       "path": "/health"
